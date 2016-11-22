@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Formulario Comprobante</title>
+<script>
+
+
+function validar(){
+
+    var sw=0;
+
+    for(i=0;i<2;i++){
+	    if(document.form.opcion[i].checked==true)
+		 {
+		    sw=1;
+		 }
+	 }
+ 
+    if(sw==0){
+	   alert(" Debe seleccionar el tipo de comprobante a generar. ");
+	   return;
+	 }
+	 
+	 if(document.form.opcion[0].checked==true){
+	  document.form.action="recibo_pdf.php";
+	 }
+	 
+	 if(document.form.opcion[1].checked==true){
+		 document.form.action="recibo_doble_pdf.php";
+	 }
+	 
+	 
+	document.form.submit();
+	 
+}
+
+</script>
+<br><br><br><br><br><br>
+</head>
+
+<body>
+
+
+
+<form  name="form" action="recibo_pdf.php" method="post">
+
+  <table style="width: 918px; height: 142px;" align="center" border="1">
+<div align="center">
+   <font face="Verdana, Geneva, Arial, Helvetica, sans-serif" size="2">
+   <input type="radio" name="opcion" value="1">Un recibo por p&aacute;gina&nbsp;&nbsp;
+   <input type="radio" name="opcion" value="2">Dos recibo por p&aacute;gina&nbsp;&nbsp;
+   </font>
+</div><br>
+    <tbody>
+
+    
+	<tr><td colspan="2"><font color="Navy"><b>EXPEDIDOR</b></font></td><td colspan="2"><font color="Navy"><b>RECEPTOR</b></font></td></tr>
+      <tr>
+
+        <td style="text-align: left;"><font color="Navy" size="2"><b>C&oacute;digo:</b></font><input maxlength="10" size="10" name="idcodigo" VALUE="20359"></td>
+
+        <td><font color="Navy" size="2"><b>Tel&eacute;fono</b></font><input maxlength="15" size="16" name="telefonoInfo" value="02127718771"></td>
+
+		<td colspan="2"><font color="Navy" size="2"><b>Nombre Contacto</b></font> </b><input maxlength="60" size="25" name="contacto"></td>
+          
+      </tr>
+
+
+      <tr>
+
+        <td colspan="2"><font color="Navy" size="2"><b>Direcci&oacute;n</b></font><br><br>
+        <font face="Verdana, Geneva, Arial, Helvetica, sans-serif" size="2">
+        <?php $direccion="";?>
+        FUNDACI&Oacute;N INFOCENTRO<BR>Coordinaci&oacute;n General de la Red de Formaci&oacute;n</br>Sector La Hoyada, Av. Universidad, Esq. El Chorro<br>
+        Edificio J. Castillo, P5</br>Parroquia Catedral<br>Municipio Libertador<br>Caracas, Distrito Capital<br><b>ZP 1012</b></font></td>
+
+		 <td colspan="2"><font color="Navy" size="2"><b>Direcci&oacute;n receptor</b></font><br><TEXTAREA COLS=45 ROWS=8 NAME="Direccion"></TEXTAREA></td>
+        
+      </tr>
+
+
+      <tr>
+
+        <td><font color="Navy" size="2"><b>Estado</b></font><br><font face="Verdana, Geneva, Arial, Helvetica, sans-serif" size="2">Distrito Capital</font></td>
+
+        <td><font color="Navy" size="2"><b>Zona postal</b></font><br><font face="Verdana, Geneva, Arial, Helvetica, sans-serif" size="2"><b>ZP 1020</b></font></br></td>
+        
+       		<td><font color="Navy" size="2"><b>Tel&eacute;fono contacto </b></font><input maxlength="15" size="16" name="telefonoContacto"></td>
+        <td><font color="Navy" size="2"><b>Tel&eacute;fono contacto2 </b></font><input maxlength="15" size="16" name="telefonoContacto2"></td>
+       
+
+      </tr>
+
+
+      <tr>
+
+        <td colspan="2"> </td>
+
+        <td><font color="Navy" size="2"><b>Estado receptor</b></font><input maxlength="15" size="15" name="edoContacto"></td>
+
+        <td><font color="Navy" size="2"><b>Zona postal receptor</b></font><input maxlength="8" size="10" name="codpostalEdo" value="ZP"></td>
+
+      </tr>
+
+
+    </tbody>
+  </table><br>
+<div align="center">
+<input type="button" onclick="javascript:validar()" value="Generar"></input>
+</div>
+  
+</form>
+</body>
+</html>
+

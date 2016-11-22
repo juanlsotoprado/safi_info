@@ -1,0 +1,129 @@
+.fechaDocumento,
+.numeroPaginas{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 17px;
+	height: 20px;
+	width: 150px;
+	text-align: right;
+}
+.numeroPaginas{
+	margin-top: 5px;
+}
+.titulo{
+	clear: left;
+	float: right;
+	padding-top: 10px;
+	text-align:center;
+	width: 70%;
+}
+.titulo{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	text-decoration: none;
+}
+table.container{
+	border: solid 2px #000000;
+	width: 100%;
+}
+table.container > tbody > tr > td,
+table.container > tr > td{
+	border-bottom: solid 1px #000000;
+	border-right: solid 1px #000000;
+}
+table.container > tbody > tr > td.right,
+table.container > tr > td.right{
+	border-right: none 0px;
+}
+table.container > tbody > tr > td.bottom,
+table.container > tr > td.bottom{
+	border-bottom: none 0px;
+}
+table.container .subtitulo{
+	font-weight:bold;							
+	vertical-align: middle;
+	text-align:center;
+	background-color: #CCCCCC;
+	height: 25px;
+	border-right: none 0px;
+}
+.textoTabla{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 22px;
+	font-weight: normal;
+	text-decoration: none;
+}
+.nombreCampo{
+	vertical-align: middle;
+	font-weight:bold;
+}
+.subContainer{
+	padding: 6px;
+	border-bottom: solid 5px #000000;
+}
+.responsables{
+	border: solid 1px #000000;
+}
+.responsables > tbody > tr > td,
+.responsables > tr > td{
+	border: solid 1px #000000;
+}
+.responsables .subResponsables > tbody > tr > td,
+.responsables .subResponsables > tr > td{
+	border-right: solid 1px #000000;
+	border-bottom: solid 1px #000000;
+}
+.subContainer > table{
+	/*
+	border-left: solid 1px #000000;
+	border-top: solid 1px #000000;
+	*/
+}
+.subContainer > table > tbody > tr > td,
+.subContainer > table > tr > td{
+	border-bottom: solid 1px #000000;
+	border-right: solid 1px #000000;
+}
+.subContainer > table > tbody > tr > td.right{
+	border-right: none;
+}
+.subContainer > table > tbody > tr > td.bottom{
+	border-bottom: none;
+}
+.firmasAutorizacion{
+	font-size: 16px;
+	width: 100%;
+}
+.firmasAutorizacion > tbody > tr > td,
+.firmasAutorizacion > tr > td{
+	border-bottom: solid 1px #000000;
+	border-right: solid 1px #000000;
+}
+.firmasAutorizacion > tbody > tr > td.left,
+.firmasAutorizacion > tr > td.left{
+	border-left: solid 2px #000000;
+}
+.firmasAutorizacion > tbody > tr > td.top,
+.firmasAutorizacion > tr > td.top{
+	border-top: solid 2px #000000;
+}
+.firmasAutorizacion > tbody > tr > td.right,
+.firmasAutorizacion > tr > td.right{
+	border-right: solid 2px #000000;
+}
+.firmasAutorizacion > tbody > tr > td.bottom,
+.firmasAutorizacion > tr > td.bottom{
+	border-bottom: solid 2px #000000;
+}
+.firmasAutorizacion .oficina{
+	text-align: center;
+	vertical-align: top;
+}
+.firmasAutorizacion .nombre{
+	height: 80px;
+	text-align: center;
+	vertical-align: bottom;
+}
+.firmasAutorizacion .elaboradoPor{
+	height: 20px;
+}

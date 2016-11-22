@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>UploadiFive Test</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="uploadify/uploadify.css">
+<style type="text/css">
+body {
+	font: 13px Arial, Helvetica, Sans-serif;
+}
+</style>
+</head>
+<body>
+	<h1>Uploadify Demo</h1>
+	<form>
+		<div id="queue"></div>
+		<input id="file_upload" name="file_upload" type="file" multiple="true">
+		<input type="button" value="Subir" id="subir" name="subir" onclick="$('#file_upload').uploadify('upload','*');"/>
+		<input type="button" value="Cancelar" id="cancelar" name="cancelar" onclick="$('#file_upload').uploadify('cancel','*');"/>
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			$('#file_upload').uploadify({
+				'formData'     : {
+					'accion' : 'Prueba'
+				},
+				'swf'      	: 'uploadify/uploadify.swf',
+				'uploader' 	: '../acciones/pcta/pcta.php',
+				/*'auto'		: false,*/
+				'onUploadComplete' : 	function(file) {
+		            						alert('The file ' + file.name + ' finished processing.');
+		        						},
+		        /*'onUploadError' 	: function(file, errorCode, errorMsg, errorString) {
+		        				            //alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
+		        				            alert('file: '+file.name+' - errorCode: '+errorCode+' - errorMsg: '+errorMsg+' - errorString: '+errorString);
+		        				        }*/
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Bit&aacute;cora</title>
+		<style type="text/css">
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 12pt;
+			}
+			div.contenedorPrincipal{
+				margin: 0px auto 0px 10px;
+				width: 1024px;
+			}
+			div.titulo {
+				font-size: 24pt;
+				text-align: center;
+			}
+			a {
+				color: blue;
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			ol.listaIndice {
+				
+			}
+			ol.listaIndice, ol.listaIndice ol {
+				counter-reset: indexItem;  /* Crea una nueva instancia del contador indexItem con cada elemento ol */
+				list-style-type: none;
+			}
+			ol.listaIndice li:before {
+				counter-increment: indexItem;  /* Incrementa solo esta instancia del contador idexItem */
+  				content: counters(indexItem, ".") " - ";  /* Agrega el valor de todas las instancias del contador indexItem  separadas por un ".". */
+			}
+			ol.listaIndice > li {
+				font-size: 18pt;
+				padding-bottom: 15pt;
+				padding-top: 5pt;
+			}
+			ol.listaIndice > li > ol {
+				
+			}
+			ol.listaIndice > li > ol > li {
+				font-size: 13pt;
+				font-weight: bold;
+				padding-bottom: 5pt;
+				padding-top: 5pt;
+			}
+			ol.listaIndice > li > ol > li > ol {
+				
+			}
+			ol.listaIndice > li > ol > li > ol > li {
+				font-size: 11pt;
+				font-weight: normal;
+				padding-bottom: 1pt;
+				padding-top: 1pt;
+			}
+			ol.listaContenido, ol.listaContenido ol {
+				counter-reset: indexItem;  /* Crea una nueva instancia del contador indexItem con cada elemento ol */
+				list-style-type: none;
+			}
+			ol.listaContenido li:before {
+				counter-increment: indexItem;  /* Incrementa solo esta instancia del contador idexItem */
+  				content: counters(indexItem, ".") " - ";  /* Agrega el valor de todas las instancias del contador indexItem  separadas por un ".". */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="contenedorPrincipal">
+			<div class="titulo">Bit&aacute;cora</div>
+			<ol class="listaIndice">
+				<li>
+					SAFI
+					<ol>
+						<li>
+							Reportes presupuestarios, contabilidad y tesorer&iacute;a
+							<ol>
+								<li><a href="#rpct_libroBanco_saldo_inicial_diferente">
+									En el reporte de libro banco el saldo inicial de un mes es diferente del saldo final del mes imediatamente anterior
+								</a></li>
+								<li><a href="#">
+									Diferencias entre el reporte de disponibilidad presupuestaria y el de contabilidad causado / pagado.
+								</a></li>
+							</ol>
+						</li>
+						<li>
+							Contabilidad
+							<ol>
+								<li><a href="#">
+									La partida no está apareciendo en el sistema para poder registrar el comprobante diario.
+								</a></li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+				<li>
+					SEGEFIRRHH
+					<ol>
+						<li>Prueba 2</li>
+						<li>Prueba 3</li>
+					</ol>
+				</li>
+			</ol>
+			
+			<ol class="listaContenido">
+				<li>
+					SAFI
+					<ol>
+						<li>
+							Reportes presupuestarios, contabilidad y tesorer&iacute;a
+								<ol>
+									<li>
+										<a name="rpct_libroBanco_saldo_inicial_diferente"></a>
+										En el reporte de libro banco el saldo inicial de un mes es diferente del saldo final del mes imediatamente anterior
+										<div class="contenido">
+											<br/>
+											/*Query 1*/<br/>
+											SELECT monto_haber<br/>
+											FROM sai_ctabanco_saldo<br/>
+											WHERE<br/>
+											docg_id LIKE 'sb-2013' AND<br/> 
+											ctab_numero='01020552270000033323'<br/><br/>
+											
+											/*Query 2*/<br/>
+											/* docg_id / Selecionar las de octubre */<br/>
+											SELECT SUM(monto_debe) AS suma_debe<br/>
+											FROM sai_ctabanco_saldo<br/>
+											WHERE ctab_numero='01020552270000033323'<br/>
+											AND TO_CHAR(fecha_saldo,'YYYY') =  '2013' AND<br/>
+											fecha_saldo &lt; TO_TIMESTAMP('2013-11-01 00:00:00','YYYY-MM-DD HH24:MI:SS')<br/>
+											AND docg_id NOT LIKE 'sb%'<br/>
+											AND docg_id NOT LIKE 'si%'<br/>
+											AND docg_id NOT IN (SELECT docg_id FROM sai_doc_genera WHERE esta_id = 15 )<br/><br/>
+											
+											/*Query 3*/<br/>
+											SELECT SUM(monto_haber) AS suma_haber<br/>
+											FROM sai_ctabanco_saldo<br/>
+											WHERE ctab_numero='01020552270000033323' AND TO_CHAR(fecha_saldo,'YYYY') =  '2013'<br/>
+											AND fecha_saldo &lt; TO_TIMESTAMP('2013-11-01 00:00:00','YYYY-MM-DD HH24:MI:SS')<br/>
+											AND docg_id NOT LIKE 'sb%'<br/>
+											AND docg_id NOT LIKE 'si%'<br/>
+											AND docg_id NOT IN ( SELECT docg_id FROM sai_doc_genera WHERE esta_id = 15)<br/><br/>
+										</div>
+									</li>
+									<li>
+										Diferencias entre el reporte de disponibilidad presupuestaria y el de contabilidad causado / pagado.
+										<div class="contenido">
+										
+										</div>
+									</li>
+								</ol>
+						</li>
+						<li>
+							Contabilidad
+							<ol>
+								<li>
+									La partida no está apareciendo en el sistema para poder registrar el comprobante diario.
+									<div class="contenido">
+										Ir a sai_convertidor y verificar si la partida se encuentra asociada a una cuenta contable. 
+										partida_id=&rsquo;&rsquo;
+									</div>
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			
+		</div>
+	</body>
+</html>

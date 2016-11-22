@@ -1,0 +1,95 @@
+<div id="boxes">
+
+	<div id="dialog" class="window">
+	<form name="form1" id="form1" method="post" action="">
+			 <table style="width: 100%; align:center;" class="tablaalertas">
+					<tr>
+						<th class="header"><span class="normalNegroNegrita">.: Anular comprobante diario <span id="idCodi"></span> :.</span> </th>
+					</tr>
+				</table>
+
+			<div class="principalpop">
+				
+			<div class="secundario" style="height: 80%; overflow: auto;" >
+				<table style="width: 100%; align:center;" class="tablaalertas" >
+				
+					    <tr>
+					      <td class="normalNegrita" id="documentoAsociado">Documento asociado:</td>
+					      <td class="normalNegrita" colspan="5" id="referenciaBancaria">Nro. Referencia bancaria:</td>
+					    </tr>
+					    <tr>
+						<td class="normalNegrita" id="fuenteFinanciamiento">Fuente de financiamiento:</td>
+					    <td width="81" class="normalNegrita" colspan="5" id="compromiso">Nro. compromiso:</td>
+					    </tr>
+					    <tr>
+					    <td colspan="6" class="normalNegrita" id="justificacion">Justificaci&oacute;n:</td>
+					    </tr>   
+					 <tr>
+						<td colspan="6" class="normalNegroNegrita">Registro contable</td>
+						</tr>    
+							<tr>
+							<td class="normalNegrita">Nro. Registro</td>
+							<td class="normalNegrita">Cuenta contable</td>	
+							<td class="normalNegrita">Descripci&oacute;n</td>	
+							<td class="normalNegrita">Debe</td>
+							<td class="normalNegrita">Haber</td>
+									
+							</tr>
+							<tbody id="codiDetalle">
+							</tbody>
+							<!-- <tr>
+							<td colspan="3" align="right">Total:</td>
+							<td colspan="3"></td>	
+							</tr>-->
+	
+							<tr>
+							<td colspan="5" class="normalNegroNegrita">Imputaci&oacute;n presupuestaria</td>
+							</tr>
+							<tr>
+							<td class="normalNegrita">Nro. Registro</td>							
+							<td class="normalNegrita">Proyecto/Acc</td>
+							<!-- <td class="normalNegrita">Acci&oacute;n espec&iacute;fica</td>-->
+							<td class="normalNegrita">Partida</td>
+							<td class="normalNegrita">Cuenta</td>
+							<td class="normalNegrita">Monto</td>
+							</tr>
+							<tbody id="codiPresupuesto">
+							</tbody>
+							
+							<tr> 
+							<td colspan="6" class="normalNegrita"><b>Motivo anulaci&oacute;n:</b> 
+								<textarea name="motivo" cols="90" rows="4" class="normalNegro" 
+								id="motivo"></textarea>
+								<input type="hidden" value="" id="id_codi" name="id_codi"/>
+							</td>
+						  </tr>
+						  </table>
+						  </div>
+						  <table style="width: 100%; align:center;" class="tablaalertas" >
+						  <tr>
+						  <td colspan="6" align="center"><input type="button" value="Anular" onClick="javascript:anularAccion(document.form1.id_codi.value, document.form1.motivo.value)"/> </td>
+						  </tr>
+						  
+						  
+						  
+				</table>
+			</div>
+			
+			<div align="center" class="secundariopop">
+				<table>
+					<tr id="trOpcionesDetallesComp">
+						<td class="opcionespcta" id="tdOpcionesPdfComp"><img
+							src="../../imagenes/pdf.png" id="OpcionesPdfComp"
+							style="position: absolute; width: 40px; heigth: 50px; margin-top: -7px; margin-left: -40px"
+							title="Generar PDF" /></td>
+						<td class="opcionespcta">
+							<a id="opcionespctacerrar" href="#"	class="close">Cerrar</a></td>
+					</tr>
+				</table>
+		</div>
+		</form>
+	</div>
+	<!-- Mask to cover the whole screen -->
+	<div id="mask"></div>
+	
+</div>

@@ -1,0 +1,935 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Querys</title>
+		
+		<style type="text/css">
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 12pt;
+			}
+			div.contenedorPrincipal{
+				margin: 0px auto 0px 10px;
+				width: 1024px;
+			}
+			ol.listaPrincipal {
+				
+			}
+			ol.listaPrincipal, ol.listaPrincipal ol {
+				counter-reset: indexItem;  /* Crea una nueva instancia del contador indexItem con cada elemento ol */
+				list-style-type: none;
+			}
+			ol.listaPrincipal li:before {
+  				counter-increment: indexItem;  /* Incrementa solo esta instancia del contador idexItem */
+  				content: counters(indexItem, ".") " - ";  /* Agrega el valor de todas las instancias del contador indexItem  separadas por un ".". */
+			}
+			ol.listaPrincipal > li {
+				font-size: 18pt;
+				padding-bottom: 15pt;
+				padding-top: 5pt;
+			}
+			ol.listaPrincipal > li > ol {
+				
+			}
+			ol.listaPrincipal > li > ol > li {
+				font-size: 13pt;
+				font-weight: bold;
+				padding-bottom: 5pt;
+				padding-top: 5pt;
+			}
+			ol.listaPrincipal > li > ol > li > ol {
+				
+			}
+			ol.listaPrincipal > li > ol > li > ol > li {
+				font-size: 11pt;
+				font-weight: normal;
+				padding-bottom: 1pt;
+				padding-top: 1pt;
+			}
+			a {
+				color: blue;
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			pre { 
+				width: 1024;
+			}
+		</style>
+	</head>
+	<body>
+	
+		<div class="contenedorPrincipal">
+			<a name="inicio"></a>
+			<ol class="listaPrincipal">
+				<li>
+					SAFI
+					<ol>
+						<li>
+							BIENES
+							<ol>
+								<li><a href="#reporte_bienes_tecnologia">Reporte de bienes de tecnolog&iacute;a</a></li>
+							</ol>
+						</li>
+						<li>
+							GENERAL
+							<ol>
+								<li><a href="#documentos_transito">Documentos que se encuentran en tr&aacute;nsito</a></li>
+								<li><a href="#documentosOrden">Documentos ordenados por c&oacute;digo</a></li>
+								<li><a href="#contadorDocumentos">Contador de documentos por categor&iacute;a de asunto</a></li>								
+							</ol>
+						</li>
+						<li>
+							PRESUPUESTO
+							<ol>
+								<li><a href="#disponibilidad_presupuesto">C&aacute;lculo de la disponibilidad presupuestaria por partida y/o proy/acc </a></li>
+								<li><a href="#pcta_sin_trazas">Consulta de puntos de cuenta sin trazas</a></li>
+								<li><a href="#no_registro_forma1125">Consulta de partidas que no tienen presupuesto programado en la tabla sai_fo1125 det. (Si la partida no est&aacute; creada, al menos debe tener monto 0)</a></li>
+							</ol>
+						</li>
+						<li>
+							COMPRAS
+							<ol>
+								<li><a href="#listado_proveedores">Listado de proveedores total</a></li>
+								<li><a href="#compras_ordc_items_precios">Precio de items en ordenes de compras.</a></li>
+								<li><a href="#compras_numero_distinto_correlativo">Por error de dependencia el correlativo de los codas de ordc no coincide con el n&uacute;mero secuencial de la orden.</a></li>
+							</ol>
+						</li>
+						<li>
+							CONTABILIDAD
+							<ol>
+								<li><a href="#reporte_disponibilidad">Errores en el reporte de causado/Pagado de contabilidad: 1.- Este reporte no cuadra con los datos arrojados en el reporte de disponibilidad de presupuesto (Verificar causados repetidos), 2.- Hay diferencias en rojo. (Verificar que todos los proyectos tengan en el campo "tipo" el valor: 1 y las acciones centralizadas tengan en el campo "tipo" el valor:0)</a></li>
+								<li><a href="#cuentas_distintas">Los n&uacute;meros y los nombres de las cuentas contables en la tabla sai_reng_comp, no coinciden con la tabla donde se llevan las cuentas contables: sai_cue_pat</a></li>
+								<li><a href="#codi_sin_compromiso">Codis que tienen cuentas de gasto (comienzan por 6) y no se les especific&oacute; compromiso</a></li>
+								<li><a href="#codi_ctab_banco">Codis que tienen cuentas de banco y no est&aacute;n en sai_mov_cuenta_banco</a></li>								
+							</ol>
+						</li>
+						<li>
+							TESORER&Iacute;A
+							<ol>
+								<li><a href="#tesoreria_pago_cheque_anulado_pagado_activo">Pago cheque anulado pero contabilidad (pagado) activa</a></li>
+							</ol>
+						</li>
+						<li>
+							VI&Aacute;TICO
+							<ol>
+								<li><a href="#viaticos_en_transito_no_finalizados">Vi&aacute;ticos en transito, no finalizados, o en una bandeja en espec&iacute;fico</a></li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+				<li>
+					SIGEFIRRHH
+					<ol>
+						<li>
+							GENERAL
+							<ol>
+								<li><a href="#sigefirrhh_general">Query general de sigefirrhh</a></li>
+							</ol>	
+						</li>
+						<li>
+							PERSONAL
+							<ol>
+								<li><a href="#sigefirrhh_reporte_antiguedad">Reporte de antig&uuml;edad</a></li>
+							</ol>	
+						</li>
+						<li>
+							PRESTACIONES
+							<ol>
+								<li><a href="#sigefirrhh_prestaciones_adicionales">Colocar en las prestaciones, monto y dias adicionales.</a></li>
+								<li><a href="#sigefirrhh_monto_cero_prestaciones">Colocar en monto cero (0) las prestaciones sociales para un año y un mes en especifico del personal tiempo indeterminado y contratado.</a></li>
+							</ol>	
+						</li>
+					</ol>
+				</li>
+			</ol>
+	<hr/>
+	<div align="center">SAFI</div>
+	<br/>
+	<br/>
+	<br/>
+	<a name="reporte_bienes_tecnologia"></a>
+	<div align="center" style="color:blue">Reporte de bienes de tecnolog&iacute;a</div>
+	<pre>
+	SELECT
+		asignacion.asbi_id AS asignacion_id_acta,
+		to_char(asignacion.asbi_fecha, 'DD/MM/YYYY HH12:MI:SS AM') AS asignacion_fecha_acta,
+		item_particular.etiqueta AS serial_bien_nacional,
+		item.nombre AS nombre_item,
+		revisiones_detalle.cedula AS cedula_receptor,
+		revisiones_detalle.nombre AS nombre_receptor,
+		ubicacion.bubica_nombre AS nombre_ubicacion
+	FROM
+		sai_bien_asbi asignacion
+		INNER JOIN sai_bien_asbi_item asignacion_item ON (asignacion_item.asbi_id = asignacion.asbi_id)
+		INNER JOIN sai_biin_items item_particular
+			ON (item_particular.clave_bien = asignacion_item.clave_bien)
+		INNER JOIN sai_item item ON (item.id = item_particular.bien_id)
+		INNER JOIN sai_revisiones_doc revisiones ON (asignacion.asbi_id = revisiones.revi_doc)
+		INNER JOIN sai_revisiones_detalle revisiones_detalle
+			ON (revisiones_detalle.revi_id = revisiones.revi_id)
+		INNER JOIN sai_empleado empleado ON (empleado.empl_cedula = revisiones_detalle.cedula)
+		LEFT JOIN sai_bien_ubicacion ubicacion ON (ubicacion.bubica_id = asignacion.ubicacion)
+	WHERE
+		asignacion.esta_id &lt;&gt; 15
+		AND revisiones.wfop_id = 99
+		AND asignacion.ubicacion = 1
+		AND empleado.depe_cosige = 550
+	ORDER BY
+		asignacion.asbi_fecha,
+		SUBSTRING(asignacion.asbi_id FROM 3 FOR (char_length(asignacion.asbi_id)-4)),
+		cedula_receptor
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="cuentas_distintas"></a>
+	<div align="center" style="color:blue">Codis con n&uacute;meros de cuentas y nombres distintos a los de sai_cue_pat</div>
+	<pre>
+	SELECT
+	        contabilidad_detalle.comp_id,
+	        contabilidad_detalle.cpat_id,
+	        contabilidad_detalle.cpat_nombre,
+	        maestro_cuentas.cpat_id,
+	        maestro_cuentas.cpat_nombre
+	FROM
+	        sai_reng_comp contabilidad_detalle
+	        INNER JOIN sai_cue_pat maestro_cuentas
+	                ON (
+	                        maestro_cuentas.cpat_id = contabilidad_detalle.cpat_id
+	                        AND trim(maestro_cuentas.cpat_nombre)  &lt;&gt; trim(contabilidad_detalle.cpat_nombre)
+	                )
+	WHERE
+	        contabilidad_detalle.comp_id LIKE 'coda-%13'
+	        AND contabilidad_detalle.cpat_nombre NOT IN ('IVA', 'LTF', 'ISLR', 'FZA')
+	<br/><br/>
+	/***********Hay casos en los que el número de cuenta está errónea, en otros casos el nombre es el que está erróneo. 
+	Para saber la cuenta real por la cual debió salir un pago con cheque o una transferencia, 
+	se debe ejecutar este query***************************/
+<br/><br/>
+SELECT
+            contabilidad_detalle.comp_id,
+            contabilidad_detalle.cpat_id,
+             ctabanco.cpat_id,
+            contabilidad_detalle.cpat_nombre,
+            maestro_cuentas.cpat_id,
+            maestro_cuentas.cpat_nombre,
+          --  contabilidad.comp_doc_id,
+            transferencia.docg_id
+          --  transferencia.nro_cuenta_emisor,
+    FROM
+            sai_reng_comp contabilidad_detalle
+            INNER JOIN sai_cue_pat maestro_cuentas
+                    ON (
+                            maestro_cuentas.cpat_id = contabilidad_detalle.cpat_id
+                            AND trim(maestro_cuentas.cpat_nombre) <> trim(contabilidad_detalle.cpat_nombre)
+                    )
+            INNER JOIN sai_comp_diario contabilidad ON (contabilidad.comp_id=contabilidad_detalle.comp_id)
+            INNER JOIN sai_pago_transferencia transferencia ON (transferencia.trans_id=contabilidad.comp_doc_id)
+            INNER JOIN sai_ctabanco ctabanco ON (ctabanco.ctab_numero = transferencia.nro_cuenta_emisor)
+    WHERE
+            contabilidad_detalle.comp_id LIKE 'coda-%14'
+            AND contabilidad_detalle.cpat_nombre NOT IN ('IVA', 'LTF', 'ISLR', 'FZA') 
+
+
+UNION
+
+SELECT
+            contabilidad_detalle.comp_id,
+            contabilidad_detalle.cpat_id,
+            ctabanco.cpat_id,
+            contabilidad_detalle.cpat_nombre,
+            maestro_cuentas.cpat_id,
+            maestro_cuentas.cpat_nombre,
+          --  contabilidad.comp_doc_id,
+            pago_cheque.docg_id
+
+    FROM
+            sai_reng_comp contabilidad_detalle
+            INNER JOIN sai_cue_pat maestro_cuentas
+                    ON (
+                            maestro_cuentas.cpat_id = contabilidad_detalle.cpat_id
+                            AND trim(maestro_cuentas.cpat_nombre) <> trim(contabilidad_detalle.cpat_nombre)
+                    )
+            INNER JOIN sai_comp_diario contabilidad ON (contabilidad.comp_id=contabilidad_detalle.comp_id)
+            INNER JOIN sai_pago_cheque pago_cheque ON (pago_cheque.pgch_id=contabilidad.comp_doc_id)
+            INNER JOIN sai_ctabanco ctabanco ON (ctabanco.ctab_numero = pago_cheque.nro_cuenta)
+    WHERE
+            contabilidad_detalle.comp_id LIKE 'coda-%14'
+            AND contabilidad_detalle.cpat_nombre NOT IN ('IVA', 'LTF', 'ISLR', 'FZA')             
+
+
+	
+	        
+     
+	</pre>
+	<br/><br/>
+	Espacios en blanco en cuentas contables en sai_reng_comp
+	<br/><br/>
+	<pre>
+	SELECT
+		comp_id, 
+		cpat_id 
+	FROM sai_reng_comp 
+	WHERE cpat_id NOT IN (
+						SELECT 
+							cpat_id 
+						FROM sai_cue_pat
+						)
+	</pre>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="codi_sin_compromiso"></a>
+	<div align="center" style="color:blue">Codis con cuentas de gasto (6.xxx) que no tienen asociado n&uacute;mero de compromiso</div>
+	<pre>
+	SELECT cdi.comp_id, r.cpat_id, cdi.comp_doc_id, ci.nro_compromiso
+	FROM
+		sai_comp_diario cdi
+	INNER JOIN  sai_reng_comp r ON (r.comp_id = cdi.comp_id)
+	INNER JOIN  sai_codi ci ON (cdi.comp_id = ci.comp_id)
+	WHERE
+		ci.nro_compromiso LIKE '%N/A%'
+		AND cdi.comp_id LIKE 'codi%12'
+		AND r.cpat_id LIKE '6%'
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="codi_ctab_banco"></a>
+	<div align="center" style="color:blue">Codis que tienen cuentas de banco y no est&aacute;n en sai_mov_cuenta_banco</div>
+	<pre>
+		SELECT
+			c.comp_id,
+			mb.docg_id, 
+			r.cpat_id,
+			mb.ctab_numero,
+			r.rcomp_debe,
+			r.rcomp_haber,
+			cb.ctab_numero,
+			c.comp_fec,
+			c.nro_referencia
+		FROM
+			sai_comp_diario c
+		INNER JOIN sai_reng_comp r ON (c.comp_id = r.comp_id)
+		LEFT OUTER JOIN sai_mov_cta_banco mb ON (mb.docg_id = c.comp_id)
+		inner JOIN sai_ctabanco cb ON (cb.cpat_id = r.cpat_id)
+		WHERE
+			c.comp_id like 'codi-%14' AND
+			r.cpat_id like '1.%' AND
+			--c.esta_id != 15 AND 
+			mb.ctab_numero is null
+		ORDER BY mb.docg_id
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>	
+	<br/>
+	<a name="documentos_transito"></a>
+	<div align="center" style="color:blue">Documentos en tr&aacute;nsito</div>
+	<pre>
+	SELECT docg_id, TO_CHAR(docg_fecha, 'dd/mm/yyyy') AS fecha, 
+	CASE perf_id_act
+	WHEN 68150 THEN 'Secret. Presidencia'
+	WHEN 71450 THEN 'Tesorera'
+	WHEN 38350 THEN 'Asist. Dir. Ejec'
+	WHEN 26450 THEN 'Analista Ord. Pago'
+	WHEN 42450 THEN 'Coord. Ord. Pago'
+	WHEN 46450 THEN 'Dir. OGAF'
+	WHEN 37200 THEN 'Asist. Consult'
+	WHEN 37400 THEN 'Asist. OPPC'
+	WHEN 37450 THEN 'Asist. OGAF'
+	WHEN 37500 THEN 'Asist. OTH'
+	WHEN 37600 THEN 'Asist. Infra'
+	WHEN 37700 THEN 'Asist. Educa'
+	WHEN 37650 THEN 'Asist. Redes'
+	WHEN 37250 THEN 'Asist. Com. Estr'
+	WHEN 46400 THEN 'Dir. OPPC'
+	WHEN 46250 THEN 'Dir. Com. Estrat'
+	WHEN 46500 THEN 'Dir. OTH'
+	WHEN 47350 THEN 'Dir. Ejec'
+	WHEN 30400 THEN 'Analista OPPC'
+	WHEN 62400 THEN 'Jefe OPPC'
+	WHEN 42456 THEN 'Coord. Compra'
+	WHEN 65150 THEN 'Presidencia'
+	WHEN 60650 THEN 'Coord. Red Inf.'
+	WHEN 60550 THEN 'Gerent Tecnolog'
+	WHEN 60600 THEN 'Coord. Redes'
+	WHEN 60700 THEN 'Coord. Formac'
+	WHEN 60200 THEN 'Cons. Juridico'
+	WHEN 15456 THEN 'Analista Compra'
+	WHEN 37550 THEN 'Asist. Tecnología'
+	
+	
+	ELSE perf_id_act 
+	END AS perfil
+	FROM sai_doc_genera
+	WHERE
+(length (perf_id_act) >2 and docg_id like '%14')
+AND docg_id NOT LIKE 'amat%'
+AND docg_id NOT LIKE 'codi%'
+AND docg_id NOT LIKE 'emat%'
+AND docg_id NOT LIKE 'ers%'
+AND docg_id NOT LIKE 'ne%'
+AND docg_id NOT LIKE 'soco%'
+AND esta_id!=15
+AND esta_id!=2
+	ORDER BY perfil, substr(docg_id, 1,4), fecha	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="documentosOrden"></a>
+	<div align="center" style="color:blue">Documentos ordenados por c&oacute;digo descendiente</div>
+	<pre>
+		SELECT trans_id, SUBSTRING (trans_id from 9 for char_length(trans_id)-10) 
+		FROM 
+			sai_pago_transferencia
+		WHERE trans_id LIKE '%13'
+		ORDER BY SUBSTRING (trans_id from 9 for char_length(trans_id)-10)::INT DESC
+
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	
+	<hr/>
+	<br/>
+	
+	<a name="contadorDocumentos"></a>
+	<div align="center" style="color:blue">Contador de documentos por categor&iacute;a de asunto</div>
+	Memorando <br/>
+	<pre>
+	
+(SELECT ma2.nombre, 0
+FROM sai_memorando_asunto ma2
+WHERE ma2.id NOT IN (SELECT id_asunto
+			FROM sai_memorando
+			)
+ORDER BY ma2.nombre			
+)
+UNION			
+(SELECT ma.nombre, count(m.memo_id)
+FROM sai_memorando_asunto ma
+INNER JOIN sai_memorando m ON (m.id_asunto=ma.id)
+GROUP BY m.id_asunto, ma.nombre
+ORDER BY count(m.memo_id), ma.nombre)
+ORDER BY 2,1
+
+</pre> <br/>
+Punto de cuenta
+<br/><br/>
+<pre>
+(SELECT pa2.pcas_nombre, 0
+FROM sai_pcta_asunt pa2
+WHERE pa2.pcas_id NOT IN (SELECT pcta_asunto
+			FROM sai_pcuenta
+			)
+ORDER BY pa2.pcas_nombre			
+)
+UNION			
+(SELECT pa.pcas_nombre, count(p.pcta_id)
+FROM sai_pcta_asunt pa
+INNER JOIN sai_pcuenta p ON (p.pcta_asunto=pa.pcas_id)
+GROUP BY p.pcta_asunto, pa.pcas_nombre
+ORDER BY count(p.pcta_id), pa.pcas_nombre
+)
+ORDER BY 2,1
+
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	
+	<hr/>
+	<br/>
+	
+	
+	<a name="listado_proveedores"></a>
+	<div align="center" style="color:blue">Listado de proveedores</div>
+	<pre>
+	SELECT 
+		prov_id_rif AS rif, 
+		CASE prov_id_tc WHEN 1 then 'Formal' 
+		WHEN 2 then 'Ordinario' 
+		WHEN 0 then 'No aplica'
+		END AS tipo_contribuyente,
+		CASE prov_prtp_id 
+		WHEN 1 THEN 'E.P.S'
+		WHEN 2 THEN 'C.A'
+		WHEN 3 THEN 'S.R.L'
+		WHEN 4 THEN 'S.A'
+		WHEN 5 THEN 'A.C'
+		WHEN 0 THEN 'No aplica'
+		WHEN 7 THEN 'Natural'
+		WHEN 6 THEN 'Natural con firma personal'
+		WHEN 8 THEN 'C.M'
+		END AS tipo_proveedor,
+		CASE prov_id_tp 
+		WHEN 1 THEN 'Natural Residente'
+		WHEN 2 THEN 'Natural No Residente'
+		WHEN 3 THEN 'Jurídica Domiciliada'
+		WHEN 4 THEN 'Jurídica No Domiciliada'
+		WHEN 0 THEN 'No aplica'
+		END AS tipo_persona,
+		  prov_nombre AS razon_social_nombre,
+		  prov_solvencia_laboral,
+		  prov_id_ramo_principal,
+		  prov_domicilio,
+		  prov_email, 
+		  prov_rnc_id, 
+		  CASE prov_esta_id WHEN 1 THEN 'Activo' 
+		  WHEN 2 THEN 'Inactivo'
+		  END AS estatus
+	FROM sai_proveedor_nuevo
+	ORDER BY prov_esta_id, prov_id_tc, prov_prtp_id, prov_id_tp, prov_nombre
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="compras_ordc_items_precios"></a>
+	<div align="center" style="color:blue">Precio de items en ordenes de compras.</div>
+	<pre>
+	SELECT DISTINCT
+		orden_compra.fecha,
+		to_char(orden_compra.fecha, 'DD/MM/YYYY') as fecha_ordc,
+		item.nombre,
+		requision_item.rbms_item_desc,
+		cotizacion_item.precio
+	FROM
+		sai_req_bi_ma_ser requisicion
+		INNER JOIN sai_rqui_items requision_item 
+			ON (requision_item.rebms_id = requisicion.rebms_id)
+		INNER JOIN sai_orden_compra orden_compra
+			ON (orden_compra.rebms_id = requisicion.rebms_id)
+		INNER JOIN sai_cotizacion cotizacion
+			ON (
+				cotizacion.ordc_id = orden_compra.ordc_id
+				AND cotizacion.rif_proveedor = orden_compra.rif_proveedor_seleccionado
+			)
+		INNER JOIN sai_cotizacion_item cotizacion_item
+			ON (cotizacion_item.id_cotizacion = cotizacion.id_cotizacion)
+		INNER JOIN sai_item item
+			ON (
+				item.id = cotizacion_item.id_item
+				--AND item.id = requision_item.rbms_item_arti_id
+			)
+	WHERE
+		requisicion.esta_id &lt;&gt; 15 AND
+		--requisicion.rebms_tipo = 1 AND
+		orden_compra.esta_id = 13
+	ORDER BY
+		item.nombre,
+		orden_compra.fecha,
+		fecha_ordc,
+		cotizacion_item.precio
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	
+
+
+	<hr/>
+	<br/>
+	<a name="compras_numero_distinto_correlativo"></a>
+	<div align="center" style="color:blue">Por error de dependencia el correlativo de los codas de ordc no coincide con el n&uacute;mero secuencial de la orden.</div>
+	<pre>
+En Hoja de C&aacute;lculo <br> </br>
+UPDATE sai_doc_genera SET docg_id='ordc-45610314' WHERE docg_id='ordc-4569814';</br>
+=CONCATENAR("UPDATE sai_doc_genera SET docg_id='";A4;"' WHERE docg_id='";A9;"';")</br></br>
+
+UPDATE sai_orden_compra SET ordc_id='ordc-45610314' WHERE ordc_id='ordc-4569814';</br>
+=CONCATENAR("UPDATE sai_orden_compra SET ordc_id='";A31;"' WHERE ordc_id='";A36;"';")</br></br>
+
+UPDATE sai_orden_compra_item SET ordc_id='ordc-45610314' WHERE ordc_id='ordc-4569814';</br>
+=CONCATENAR("UPDATE sai_orden_compra_item SET ordc_id='";A72;"' WHERE ordc_id='";A77;"';")</br></br>
+
+UPDATE sai_cotizacion SET ordc_id='ordc-45610314' WHERE ordc_id='ordc-4569814';</br>
+=CONCATENAR("UPDATE sai_cotizacion SET ordc_id='";A98;"' WHERE ordc_id='";A103;"';")</br></br>
+
+UPDATE sai_revisiones_doc SET revi_doc='ordc-45610314' WHERE revi_doc='ordc-4569814';</br>
+=CONCATENAR("UPDATE sai_revisiones_doc SET revi_doc='";A105;"' WHERE revi_doc='";A110;"';")</br></br>
+
+UPDATE sai_docu_sopor SET doso_doc_fuente='ordc-45610314' WHERE doso_doc_fuente='ordc-4569814';</br>
+=CONCATENAR("UPDATE sai_docu_sopor SET doso_doc_fuente='";A131;"' WHERE doso_doc_fuente='";A136;"';")</br></br>
+
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	
+	
+	
+	
+	<a name="reporte_disponibilidad"></a>
+	<div align="center" style="color:blue">Errores en el reporte de causado/Pagado de contabilidad: 1.- Este reporte no cuadra con los datos arrojados en el reporte de disponibilidad de presupuesto (Verificaci&oacute;n de causados repetidos), 2.- Hay diferencias en rojo. (Verificar que todos los proyectos tengan en el campo "tipo" el valor: 1 y las acciones centralizadas tengan en el campo "tipo" el valor:0)</div>
+	<br>
+	<b>1.- Este reporte no cuadra con los datos arrojados en el reporte de disponibilidad de presupuesto (Verificaci&oacute;n de causados repetidos)</b>
+	<br>
+	<pre>
+	SELECT caus_docu_id
+	FROM sai_causado
+	WHERE esta_id=1
+	GROUP BY caus_docu_id
+	HAVING COUNT(caus_docu_id)&gt;1
+	</pre>
+	<br/>
+	<b>2.- Hay diferencias en rojo. Primero se debe comparar la fecha exacta en las tablas sai_comp_diario(comp_fec_emis) y sai_causado(caus_fecha) y las fechas de anulaci&oacute;n (si aplica). Luego se deben verificar que todos los proyectos tengan en el campo "tipo" el valor: 1 y las acciones centralizadas tengan en el campo "tipo" el valor:0; para ello, en la consola de Pgadmin, hay que analizar las tablas sai_causad_det, sai_pagado_dt y sai_reng_comp.</b><br><br>
+	<br>
+	<b>sai_causad_det</b>
+	<br>
+	<pre>
+	SELECT 
+		*
+	FROM 
+		sai_causad_det 
+	WHERE
+		pres_anno = 2013 --Año presupuestario que se desee consultar
+	AND cadt_tipo='0'
+	AND cadt_id_p_ac NOT IN (SELECT acce_id FROM sai_ac_central WHERE pres_anno=2013)
+	
+	UNION
+	
+	SELECT 
+		*
+	FROM 
+		sai_causad_det 
+	WHERE
+	pres_anno = 2013 --Año presupuestario que se desee consultar
+	AND cadt_tipo='1'
+	AND cadt_id_p_ac NOT IN (SELECT proy_id FROM sai_proyecto WHERE pres_anno=2013)	
+	</pre>	
+	<br>
+	<b>sai_pagado_dt</b>
+	<br>
+	<pre>
+	SELECT 
+		*
+	FROM 
+		sai_pagado_dt 
+	WHERE
+		pres_anno = 2013 --Año presupuestario que se desee consultar
+		AND padt_tipo='0'
+		AND padt_id_p_ac NOT IN (SELECT acce_id FROM sai_ac_central WHERE pres_anno=2013)
+
+	UNION
+
+	SELECT 
+		*
+	FROM 
+		sai_pagado_dt 
+	WHERE
+		pres_anno = 2013 --Año presupuestario que se desee consultar
+		AND padt_tipo='1'
+		AND padt_id_p_ac NOT IN (SELECT proy_id FROM sai_proyecto WHERE pres_anno=2013)
+	</pre>	
+	<br><br>
+	<b>sai_reng_comp</b>
+	<br>
+	<pre>
+	SELECT 
+		*
+	FROM 
+		sai_reng_comp 
+	WHERE
+		pres_anno = 2013 --Año presupuestario que se desee consultar
+		AND pr_ac_tipo='0'
+		AND pr_ac IS NOT NULL 
+		AND pr_ac != '' 
+		AND pr_ac NOT IN (SELECT acce_id FROM sai_ac_central WHERE pres_anno=2013)
+	
+	UNION
+	
+	SELECT 
+		*
+	FROM 
+		sai_reng_comp 
+	WHERE
+		pres_anno = 2013 --Año presupuestario que se desee consultar
+		AND pr_ac_tipo='1'
+		AND pr_ac IS NOT NULL 
+		AND pr_ac != '' 
+		AND pr_ac NOT IN (SELECT proy_id FROM sai_proyecto WHERE pres_anno=2013)	
+	</pre>
+	<br>
+	<br>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	
+	<a name="disponibilidad_presupuesto"></a>
+	<div align="center" style="color:blue">C&aacute;lculo de la disponibilidad presupuestaria por partida y/o proy/acc</div>
+	<pre>
+	
+	GENERAL DE LA DISPONIBILIDAD (sai_pres_consulta_disp)
+	SELECT * 
+	FROM
+	--(año, 0 = accion centralizada 1 = proyecto,accion centralizada,accion especifica,partida,dependencia,monto solicitado para la partida)
+	--para buscar accion centralizada y accion especifica:
+	---- si es accion centralizada se busca en la tabla sai_acce_esp filtrar: centro_gestor, centro_costo  campos: acce_id, aces_id
+	---- si es proyecto se busca en la tabla sai_proy_a_esp filtrar: centro_gestor, centro_costo campos: proy_id, paes_id
+	sai_pres_consulta_disp(2013,'0','2013-AC','2013-AC','4.01.05.01.00','500',0) AS monto_dispo 
+	
+	
+	DETALLE DE LA DISPONIBILIDAD (sai_pres_consulta_disp) --muestra los puntos de cuenta en transito
+	SELECT 
+		b.pcta_ID AS monto_c  
+	FROM 
+		sai_pcuenta a, 
+		sai_pcta_imputa b, 
+		sai_doc_genera d 
+	WHERE 
+		a.pcta_id = d.docg_id 
+		AND b.pres_anno = 2013 
+		AND a.esta_id != 15 
+		AND a.esta_id != 14 
+		AND a.esta_id != 2
+		AND a.pcta_id = b.pcta_id 
+		AND b.pcta_tipo_impu=0::BIT 
+		AND b.pcta_acc_pp='2013-AC' 
+		AND b.pcta_acc_esp='2013-AC'  
+		AND b.pcta_sub_espe like '4.01.05.07.00%'
+	
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="pcta_sin_trazas"></a>
+	<div align="center" style="color:blue">Consulta de puntos de cuentas sin trazas</div>
+	<pre>
+	SELECT pcta_id, esta_id
+	FROM sai_pcuenta
+	WHERE 
+		pcta_id NOT IN (SELECT pcta_id FROM sai_pcta_imputa_traza)
+		AND pcta_id LIKE 'pcta%13'
+		AND esta_id!=15
+	
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	
+	<br/>
+	<a name="no_registro_forma1125"></a>
+	<div align="center" style="color:blue">Consulta de partidas que no tienen presupuesto programado en la tabla sai_fo1125 det. (Si la partida no est&aacute; creada, al menos debe tener monto 0)</div>
+	<pre>
+	SELECT s0305.*, forma.part_id, forma.form_id
+FROM
+sai_fo0305_det s0305
+
+LEFT JOIN
+(
+	SELECT
+		s1125.form_id, s1125.pres_anno, s1125.form_id_p_ac, s1125.form_id_aesp, s1125d.part_id
+	FROM
+		sai_forma_1125 s1125
+		INNER JOIN sai_fo1125_det s1125d ON (s1125d.form_id=s1125.form_id AND s1125d.pres_anno = s1125.pres_anno)	
+	WHERE
+		s1125.pres_anno = 2014
+) AS forma ON (s0305.pres_anno = forma.pres_anno AND s0305.f0dt_id_p_ac = forma.form_id_p_ac AND f0dt_id_acesp = forma.form_id_aesp AND s0305.part_id = forma.part_id)
+WHERE
+s0305.pres_anno=2014 and s0305.f0dt_tipo='1' and s0305.part_id not like '4.11.0%'
+--AND  forma.part_id IS null
+	
+	<br><br>
+	En Hoja de C&aacute;lculo: <br><br>
+	=CONCATENAR("INSERT INTO sai_fo1125_det VALUES ('";G25;"',";2014;",";0;",";1;",";"'";J25;"');")
+	
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>	
+	
+
+	<br/>
+	<a name="tesoreria_pago_cheque_anulado_pagado_activo"></a>
+	<div align="center" style="color:blue">Pago cheque anulado pero contabilidad (pagado) activa</div>
+	<pre>
+	SELECT
+		pagado.paga_docu_id,
+		pago_cheque.esta_id,
+		pagado.esta_id,
+		pago_cheque.pgch_fecha,
+		pago_cheque.docg_id
+	FROM
+		sai_pago_cheque pago_cheque
+		INNER JOIN sai_pagado pagado ON (pagado.paga_docu_id = pago_cheque.pgch_id)
+		-- Fecha de la transferencia, fecha del pagado de la tranferencia
+	WHERE
+		pago_cheque.esta_id &lt;&gt; pagado.esta_id
+		AND pago_cheque.esta_id = '2'
+		--AND pagado.paga_docu_id IN ('pgch-450231413', 'pgch-450231113')
+	ORDER BY
+		pago_cheque.pgch_fecha
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="viaticos_en_transito_no_finalizados"></a>
+	<div align="center" style="color:blue">Vi&aacute;ticos en transito, no finalizados, o en una bandeja en espec&iacute;fico</div>
+	<pre>
+	SELECT
+	        viatico.id AS viatico_id,
+	        rendicion.id,
+	        documento_viatico.*
+	FROM
+	        safi_viatico viatico
+	        INNER JOIN sai_doc_genera documento_viatico ON (viatico.id = documento_viatico.docg_id)
+	        INNER JOIN safi_rendicion_viatico_nacional rendicion
+	                ON (rendicion.viatico_nacional_id = viatico.id)
+	WHERE
+	        --documento_viatico.perf_id_act &lt;&gt; ''
+	        documento_viatico.perf_id_act = '46450' -- Filtrar por bandeja
+	        AND documento_viatico.esta_id &lt;&gt; '15'
+	        --AND viatico.id LIKE 'vnac-650%' -- Filtrar por dependencia
+	ORDER BY
+	        substring(viatico.id from 9 FOR (length(viatico.id) - 10) )
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<br/>
+	<div align="center">SIGEFIRRHH</div>
+	<br/>
+	<br/>
+	
+	<a name="sigefirrhh_general"></a>
+	<div align="center" style="color:blue">Query general sigefirrhh</div>
+	<pre>
+	SELECT
+		p.cedula,
+		UPPER(primer_nombre),
+		COALESCE(UPPER(segundo_nombre), ''),
+		UPPER(primer_apellido),
+		COALESCE(UPPER(segundo_apellido), ''),
+		sexo,
+		fecha_nacimiento,
+		estado_civil,
+		t.fecha_ingreso,
+		c.descripcion_cargo,
+		t.sueldo_basico,
+		p.direccion_residencia,
+		p.email,
+		CASE (t.id_tipo_personal)
+			WHEN 1 THEN 'TIEMPO INDETERMINADO'
+			WHEN 10 THEN 'CONTRATADOS FACILITADORES'
+			WHEN 44 THEN 'FACILITADORES TIEMP DETERMINADO TIPO TRANSF.'
+			WHEN 71 THEN 'ALFABETIZADORES'
+			WHEN 71 THEN 'BECARIOS'
+		END AS tipo_personal
+	FROM
+		personal p
+		INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
+		INNER JOIN cargo c ON (c.id_cargo = t.id_cargo)
+	WHERE
+		t.estatus='A'
+	ORDER BY
+		t.id_tipo_personal,
+		t.cedula
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="sigefirrhh_reporte_antiguedad"></a>
+	<div align="center" style="color:blue">Reporte antig&uuml;edad</div>
+	<pre>
+
+SELECT
+	trabajador.cedula,
+	personal.primer_nombre,
+	personal.segundo_nombre,
+	personal.primer_apellido,
+	personal.segundo_apellido,
+	TO_CHAR(trabajador.fecha_ingreso, 'DD/MM/YYYY') AS fecha_ingreso_str,
+	TO_CHAR(date(now()), 'DD/MM/YYYY') AS fecha_calculo_str,
+	extract(year from AGE(trabajador.fecha_ingreso)) || ' año(s) '
+	|| extract(month from AGE(trabajador.fecha_ingreso)) || ' mes(es) '
+	|| extract(day from AGE(trabajador.fecha_ingreso)) || ' día(s) ' AS antiguedad,
+	extract(year from AGE(trabajador.fecha_ingreso)) AS a_os_antiguedad,
+	extract(month from AGE(trabajador.fecha_ingreso)) AS meses_antiguedad,
+	extract(day from AGE(trabajador.fecha_ingreso)) AS dias_antiguedad,
+	ciudad.nombre AS ciudad_pago,
+	sede.nombre AS sede_pago,
+	dependencia.nombre AS dependencia,
+	dependencia_real.nombre AS dependencia_real
+	
+FROM
+	personal
+	INNER JOIN trabajador ON (trabajador.id_personal = personal.id_personal)
+	LEFT JOIN lugarpago ON (lugarpago.id_lugar_pago = trabajador.id_lugar_pago)
+	LEFT JOIN ciudad ON (ciudad.id_ciudad = lugarpago.id_ciudad)
+	LEFT JOIN sede ON (sede.id_sede = lugarpago.id_sede)
+	LEFT JOIN dependencia ON (dependencia.id_dependencia = trabajador.id_dependencia)
+	LEFT JOIN dependencia AS dependencia_real ON (dependencia_real.id_dependencia = trabajador.id_dependencia_real)
+WHERE
+	trabajador.estatus = 'A'
+ORDER BY
+	AGE(trabajador.fecha_ingreso) DESC,
+	personal.primer_apellido,
+	personal.segundo_apellido,
+	personal.primer_nombre,
+	personal.segundo_nombre
+	
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	<a name="sigefirrhh_prestaciones_adicionales"></a>
+	<div align="center" style="color:blue">Colocar en las prestaciones, monto y dias adicionales</div>
+	<pre>
+	UPDATE 
+		prestacionesmensuales  
+	SET 
+		dias_adicionales = (dias adicionales), 
+		monto_adicional = (monto adicional)
+	FROM 
+		trabajador t2  
+	WHERE  
+		(t2.id_trabajador = prestacionesmensuales.id_trabajador)   
+		AND prestacionesmensuales.anio = (año)   
+		AND prestacionesmensuales.mes = (mes que se deseea cambiar)    
+		AND (prestacionesmensuales.id_tipo_personal = 1 OR prestacionesmensuales.id_tipo_personal = 10)   
+		AND t2.cedula = (cedula);
+		
+		-Todos estos dados seran facilitados por la oficina de talento humano(libre calc)
+		-Se construye el query con la funcion =concatenar("update";$columna;"etc")
+
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+		<a name="sigefirrhh_monto_cero_prestaciones"></a>
+	<div align="center" style="color:blue">Colocar en monto cero (0) las prestaciones sociales para un año y un mes en especifico del personal tiempo indeterminado y contratado.</div>
+	<pre>
+	UPDATE
+		prestacionesmensuales
+	SET
+		base_mensual = 0,
+		base_adicional = 0,
+		monto_prestaciones = 0,
+		monto_adicional = 0
+	WHERE
+		anio = (año solicitado)
+		AND mes = (mes solicitado)
+		AND (id_tipo_personal = 1 OR id_tipo_personal = 10)
+	</pre>
+	<br/>
+	<div align="right"><a href="#inicio">Volver</a></div>
+	<hr/>
+	<br/>
+	</div>
+	
+	</body>
+</html>

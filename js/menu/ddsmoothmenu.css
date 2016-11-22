@@ -1,0 +1,165 @@
+.ddsmoothmenu {
+font-family:cursive;
+	font-size: 12px;
+	border-top: #C2C2C2 2px solid;
+	font-weight:bold;
+	width: 100%;
+	height: 33px;
+//	margin-top:100px;
+-webkit-border-bottom-right-radius: 120px;
+-moz-border-radius-bottomright: 120px;
+border-bottom-right-radius: 120px;
+	/*para reducir la altura de los items principales del menu*/
+	line-height: 12px;
+
+}
+
+.ddsmoothmenu ul {
+
+	z-index: 100;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	
+}
+
+.ddsmoothmenu ul li {
+	position: relative;
+	display: inline;
+	float: left;
+-webkit-border-top-right-radius: 50px;
+-webkit-border-bottom-right-radius: 100px;
+-moz-border-radius-topright: 50px;
+-moz-border-radius-bottomright: 100px;
+border-top-right-radius: 50px;
+border-bottom-right-radius: 100px;
+	
+	
+	
+}
+
+.ddsmoothmenu ul li a {
+	border-top:3px solid #DBEDFE;
+	display: block;
+	background: #fafafa;
+	padding : 8px 10px;
+	border-right: 1px solid #D4DFE7;
+	border-bottom: 1px solid #D4DFE7;
+-webkit-border-top-right-radius: 20px;
+-webkit-border-bottom-right-radius: 50px;
+-moz-border-radius-topright: 20px;
+-moz-border-radius-bottomright: 50px;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 50px;
+	text-decoration: none;
+	padding: 8px 3px;
+		color:#05578E;
+			//border: 1px solid black;
+
+	
+}
+
+* html .ddsmoothmenu ul li a {
+	
+	/*IE6 hack to get sub menu links to behave correctly*/
+	display: inline-block;
+	
+}
+
+
+.ddsmoothmenu ul li a.selected {
+	/*CSS class that's dynamically added to the currently active menu items' LI A element*/
+	border-top:3px solid  #0772B9;
+}
+
+.ddsmoothmenu ul li a:hover {
+
+   border-top:3px solid  #0772B9;
+	
+}
+
+.ddsmoothmenu ul li ul {
+	position: absolute;
+	left: 0;
+	margin-top:7px;
+	display: none; /*collapse all sub menus to begin with*/
+	visibility: hidden;
+		//box-shadow: 20px 5px 20px #888888;
+	
+}
+
+.ddsmoothmenu ul li ul li {
+	display: list-item;
+	float: none;
+
+}
+
+.ddsmoothmenu ul li ul li ul {
+	top: 0;
+}
+
+.ddsmoothmenu ul li ul li a {
+	font: bold 11px Verdana;
+	width: 200px; /*width of sub menus*/
+	padding: 6px;
+	margin: 0;
+	border-top-width: 0;
+	border-top:0px;
+	border: 1px solid #05578E;
+	color:#05578E;
+	
+	-webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background: #FAFAFA;
+	
+}
+
+.ddsmoothmenu ul li ul li a:hover {
+
+	background: #E0EFFC;
+    border-top:1px solid  #05578E;
+-webkit-border-radius: 7px;
+-moz-border-radius: 7px;
+border-radius: 7px;
+}
+
+
+
+
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu {
+	height: 1%;
+} /*Holly Hack for IE7 and below*/
+
+/* ######### CSS classes applied to down and right arrow images  ######### */
+.downarrowclass {
+	position: absolute;
+	top: 11px;
+	right: 7px;
+	
+}
+
+.rightarrowclass {
+	position: absolute;
+	top: 6px;
+	right: 5px;
+}
+
+/* ######### CSS for shadow added to sub menus  ######### */
+.ddshadow {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 0;
+	height: 0;
+
+	
+}
+
+.toplevelshadow { /*shadow opacity. Doesn't work in IE*/
+	opacity: 0.9;
+}

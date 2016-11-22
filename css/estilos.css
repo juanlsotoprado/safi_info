@@ -1,0 +1,182 @@
+
+.body{
+	font-size: 12px;
+	
+}
+
+
+.tabla{
+	border-right: #BEBEBE 1px solid; 
+	border-top: #BEBEBE 1px solid; 
+	border-left: #BEBEBE 1px solid; 
+	border-bottom: #BEBEBE 1px solid;
+	width: 100%;
+	margin-left:auto;
+	margin-right:auto;
+	background-image: url('../imagenes/fondo_tabla.gif')
+}
+
+.tabla th {
+    background-color:#C3ECCC;
+	text-align: left;
+	font-weight: bold;
+	font-size: 11px;
+	color: #000000;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none    
+}
+
+
+.tablaPequena{
+	border-right: #BEBEBE 1px solid; 
+	border-top: #BEBEBE 1px solid; 
+	border-left: #BEBEBE 1px solid; 
+	border-bottom: #BEBEBE 1px solid;
+	width: 60%;
+	margin-left:auto;
+	margin-right:auto;
+	background-image: url('../imagenes/fondo_tabla.gif');
+		-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+}
+
+.tablaPequena th {
+	text-align: left;
+	font-weight: bold;	
+    background-color:#C3ECCC;
+	font-weight: bold;
+	font-size: 11px;
+	color: #000000;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none    
+}
+
+.tablaResultado{
+	border-right: #BEBEBE 1px solid; 
+	border-top: #BEBEBE 1px solid; 
+	border-left: #BEBEBE 1px solid; 
+	border-bottom: #BEBEBE 1px solid;
+	width: 100%;
+	margin-left:auto;
+	margin-right:auto;
+	background-image: url('../imagenes/fondo_tabla.gif')
+}
+
+.tablaResultado th {
+    background-color:#C3ECCC;
+	text-align: center;
+	font-weight: bold;
+	font-size: 11px;
+	color: #000000;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none    
+}
+
+.tablaResultado tr {
+	font-weight: normal;
+	font-size: 11px;
+	color: #005e20;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none
+}
+.normal {
+	font-weight: normal;
+	font-size: 11px;
+	color: #005e20;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none
+}
+.normalNegrita {
+	font-weight: bold;
+	font-size: 11px;
+	color: #005e20;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none
+}
+.normalNegritaSubrayado {
+	font-weight: bold;
+	font-size: 11px;
+	text-decoration: underline;
+	color: #005e20;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none
+}
+
+.normalNegro {
+	font-weight: normal;
+	font-size: 11px;
+	color: #000000;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none
+}
+.normalNegroNegrita {
+	font-weight: bold;
+	font-size: 11px;
+	color: #000000;
+	font-family: verdana, geneva, arial, helvetica, sans-serif;
+	text-decoration: none
+}
+
+a:link {text-decoration:underline; color: #005E20; font-weight: bold;} /* Link no visitado*/
+a:visited {text-decoration:underline; color: #005E20; font-weight: bold;} /*Link visitado*/
+a:active {text-decoration:underline; color: #8DC73F; font-weight: bold;} /*Link activo*/
+a:hover {text-decoration:underline; color: #8DC73F; font-weight: bold;} /*Mause sobre el link*/
+
+
+td { vertical-align: top; }
+
+
+.nombreResponsable {
+	background-color: inherit;
+}
+
+.ui-autocomplete {
+	max-height: 110px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	/* add padding to account for vertical scrollbar */
+	padding-right: 30px;
+	
+}
+/* IE 6 doesn't support max-height
+			 * we use height instead, but this forces the menu to always be this tall
+			 */
+* html .ui-autocomplete {
+	height: 120px;
+	
+}
+
+
+fieldset{
+
+-webkit-border-top-left-radius: 5px;
+-webkit-border-top-right-radius: 10px;
+-webkit-border-bottom-right-radius: 20px;
+-webkit-border-bottom-left-radius: 10px;
+-moz-border-radius-topleft: 5px;
+-moz-border-radius-topright: 10px;
+-moz-border-radius-bottomright: 20px;
+-moz-border-radius-bottomleft: 10px;
+border-top-left-radius: 5px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 20px;
+border-bottom-left-radius: 10px;
+}
+
+.links{
+
+margin-left:10px;
+font-size:13px;
+text-decoration:underline;
+cursor: hand
+
+}
+
+.links:hover{
+
+font-size:13px;
+color: #585858;
+
+}

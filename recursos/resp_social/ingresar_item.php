@@ -1,0 +1,173 @@
+<?php 
+  ob_start();
+  session_start();
+  require_once("../../includes/conexion.php");
+	 
+  if  ( empty($_SESSION['login']) || ($_SESSION['registrado']!="registrado") )
+  {
+   header('Location:../../index.php',false);
+   ob_end_flush(); 
+   exit;
+  }
+  ob_end_flush(); 
+
+  $descripcion=trim($_REQUEST['descripcion']);?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<link  rel="stylesheet" href="../../css/plantilla.css" type="text/css" media="all"  />
+<title>.:SAFI:INGRESAR ART&Iacute;CULO</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script LANGUAGE="JavaScript" SRC="../../js/funciones.js"> </SCRIPT>
+<script language="JavaScript">
+
+//FunciOn que permite verficar que la descripcion no se encuentre repetida
+function verificar_descripcion()
+{ 
+   palabra=document.form1.descrip.value;
+   <?php
+   $sql_p="SELECT * FROM sai_item WHERE id_tipo=4"; 
+   $resultado_set_most_p=pg_query($conexion,$sql_p) or die("Error al mostrar");
+   while($row=pg_fetch_array($resultado_set_most_p)) 
+   {?>
+    palabra1='<?php echo trim($row['nombre']); ?>';
+	if (palabra.toUpperCase()==palabra1.toUpperCase())
+    {
+	 alert("Esta descripci\u00F3n ya existe en la base de datos...");
+	 document.form1.descrip.value='';
+	 return;
+	}
+    <?php
+   }
+  ?> 
+}
+
+//FunciOn que valida el llenado de todos los campos 
+function revisar()
+{
+	
+	if (document.form1.descrip.value=="")
+	{
+		alert("Debe especificar el art\u00EDculo")
+		document.form1.descrip.select();
+		document.form1.descrip.focus();
+		return;
+	}	
+
+	if (document.form1.tipo_art.value==0)
+	{
+		alert("Debe seleccionar una clasificaci\u00F3n para el art\u00EDculo")
+		document.form1.tipo_art.focus();
+		return;
+	}
+	
+	if(confirm("Estos datos ser\u00E1n registrados. Est\u00E1 seguro que desea continuar?"))
+	{
+	  document.form1.submit()
+	}
+}	
+
+/*FunciiOn que valida que solo se introduzcan digitos caracteres y numericos en el campo*/
+function validar_digito(objeto)
+{
+	var checkOK = "ABCDEFGHIJKLMN\u00D1OPQRSTUVWXYZabcdefghijklmn\u00F1opqrstuvwxyz0123456789\u00E1\u00E9\u00ED\u00F3\u00FA\u00C1\u00C9\u00CD\u00D3\u00DA -_.,;()";
+	var checkStr = objeto.value;
+	var allValid = true;
+	for (i = 0;  i < checkStr.length;  i++)
+	{
+		ch = checkStr.charAt(i);
+		for (j = 0;  j < checkOK.length;  j++)
+		if (ch == checkOK.charAt(j))
+			break;
+		if (j == checkOK.length)
+		{
+			var cambio=checkStr.substring(-1,i) 
+			objeto.value=cambio;
+			alert("Estos caracteres no est\u00E1n permitidos");
+			break;
+		}
+	}
+}
+
+</script>
+</head>
+<body>
+<form name="form1" method="post" action="ingresar_itemAccion.php">
+ <table width="550" align="center" background="../../imagenes/fondo_tabla.gif" class="tablaalertas">
+	<tr class="td_gray"> 
+	<td height="15" colspan="4" valign="middle" class="normalNegroNegrita">Registrar</td>
+    </tr>
+    <tr>
+      <td height="33"><div class="normalNegrita">&emsp;&emsp;&emsp;Art&iacute;culo:</div></td>
+      <td height="33" colspan="3" valign="middle">
+	  <?php if($_REQUEST['descripcion']!='')  
+	    {?>
+	  <input name="descrip" value="<?php echo $_REQUEST['descripcion'];?>" type="text" class="normal" size="26" onblur="javascript:verificar_descripcion()" onchange="validar_digito(descrip)"/> <span class="peq_naranja">(*)</span></td>
+	  <? } else {?>
+	  <input name="descrip" type="text" class="normal" size="26" onChange="javascript:verificar_descripcion()" onchange="validar_digito(descrip)"/>
+	  <? } ?> <span class="peq_naranja">(*)</span>
+    </tr>
+        <tr> 
+      <td height="31" valign="middle"> <div class="normalNegrita">&emsp;&emsp;&emsp;Unidad de medida:</div></td>
+      <td height="31" colspan="3" valign="middle" class="normal">
+	  
+      <select name="unidad" class="normal" id="unidad">
+	  <?php
+	  $sql="SELECT * FROM sai_seleccionar_campo('sai_uni_medida','unme_id, unme_descrip','','',2) resultado_set(unme_id varchar,unme_descrip varchar)"; 
+	  $resultado=pg_query($conexion,$sql) or die("Error al mostrar");
+	  $actual=trim($_REQUEST['unidad_med']);
+	  while($row=pg_fetch_array($resultado))
+	    { 
+   	     $id_unidad=trim($row['unme_id']);
+	     $descrip_unidad=$row['unme_descrip'];
+	    if ($id_unidad=="uni"){
+	  ?>
+	  <option value="<?=$id_unidad;?>" selected><?php echo"$descrip_unidad";?></option> 
+      <?php }else{?>
+      <option value="<?=$id_unidad;?>"><?php echo"$descrip_unidad";?></option>
+	  <? }}
+	  ?>
+	  </select> <span class="peq_naranja">(*)</span></td>
+    </tr>
+    <tr>
+	  <td class="normalNegrita">&emsp;&emsp;&emsp;Estado:</td>
+	  <td height="42" colspan="4" class="normalNegrita">
+	  <input name="opt_estado" type="radio" value="1" checked />Activo
+	  <input name="opt_estado" type="radio" value="2" />Inactivo
+	  </td>
+	  </tr>
+      <tr>
+      <td height="32" ><div class="normalNegrita">&emsp;&emsp;&emsp;Clasificaci&oacute;n: </div></td>
+      <td height="32" colspan="3" valign="midden">
+	 <select name="tipo_art" class="normal" id="tipo_art">
+	   <option value="0">[Seleccione]</option>
+	  <?php
+	  $sql="SELECT * FROM sai_seleccionar_campo('sai_arti_tipo','tp_id,tp_desc','tp_id<>12 and id_tipo=4','tp_desc',1) resultado_set(tp_id varchar,tp_desc varchar)"; 
+	  $resultado=pg_query($conexion,$sql) or die("Error al mostrar");
+	  $actual=trim($_REQUEST['unidad_med']);
+	  while($row=pg_fetch_array($resultado))
+	    { 
+   	     $id_tipo=trim($row['tp_id']);
+	     $descrip_tipo=$row['tp_desc'];
+	    
+	  ?>
+	  <option value="<?=$id_tipo;?>"><?php echo"$descrip_tipo";?></option> 
+     
+	  <?php 
+	  }
+	  ?>
+	  </select> <span class="peq_naranja">(*)</span> </td>
+    </tr>
+     <tr>
+      <td height="15" colspan="4"><br>
+	  <div align="center">
+	  <input class="normalNegro" type="button" value="Registrar" onclick="javascript:revisar();"/>
+	  <br><br></div>	  </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<?php pg_close($conexion);?>

@@ -1,0 +1,55 @@
+.basictab ul{
+margin:0 ;
+font: bold 11px Verdana;
+/*border-bottom: 1px solid gray;*/
+/*border-bottom: 1px solid #005E1F;*/
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+padding-left: 0;
+
+
+}
+
+.basictab li{
+display: inline;
+margin: 0;
+
+}
+
+.basictab li a{
+text-decoration: none;
+padding: 3px 7px;
+/*margin-right: 3px;*/
+/*border: 1px solid gray;*/
+border: 1px solid #C2C2C2;
+background-color: #FAFAFA;
+color: #848484;
+font-size: 1em;
+}
+
+
+.basictab li a:hover, .basictab li a.current{
+/*background-color: #DBFF6C;*/
+/*background-color: #8BBF8E;*/
+/*color: black;*/
+	color: #575757;
+	border: 1px solid #575757;
+	-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+
+}
+
+.basictab li a:active{
+color: #C2C2C2;
+}
+
+.tabcontainer{
+clear: left;
+width:95%; /*width of 2nd level sub menus*/
+height:1.5em; /*height of 2nd level sub menus. Set to largest's sub menu's height to avoid jittering.*/
+}
+
+.tabcontent{
+display:none;
+}

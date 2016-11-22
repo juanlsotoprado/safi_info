@@ -1,0 +1,15 @@
+var aACUTE = "\u00e1";//á
+var eACUTE = "\u00e9"; //é
+var iACUTE = "\u00ed"; //í
+var oACUTE = "\u00f3"; //ó
+var uACUTE = "\u00fa"; //ú
+var AACUTE = "\u00c1"; //Á
+var EACUTE = "\u00c9"; //É
+var IACUTE = "\u00cd"; //Í
+var OACUTE = "\u00d3"; //Ó
+var UACUTE = "\u00da"; //Ú
+var nTILDE = "\u00f1"; //ñ
+var NTILDE = "\u00d1"; //Ñ
+var pACUTE = "\u00bf"; //¿
+var gACUTE = "\u00a1"; //¡
+var NON_BREAKING_SPACE = "\u00A0"; // " "

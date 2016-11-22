@@ -1,0 +1,70 @@
+sopg-450392914
+
+sopg-450393014
+
+- Probar si se pierde el iva.
+- Probar la disponibilidad del compromiso cuando la solicitud se devuelve al analista de ordenación de pagos.
+- Solución para las diferencias existentes en el iva, entre la solicitud y el compromiso.
+
+
+Proceso de aprobación de solicitud de pago.
+1 - La solicitud de pago es creada por el "Analista de ordenacion de pagos".
+2 - La solicitud llega a la bandeja del "Coordinador de la oficina de gestión administrativa y financiera".
+3 - El coordinador tiene la posibilidad de establecer las retenciones y aprobar la solicitud.
+4 - Si el coordinador aprueba la solictud, esta llega a la badeja del "Director de la oficina de gestión administativa y financiera".
+
+Devolución de la solicitud de pago del Director de gestión administrativa y financiera.
+
+* Devolución por parte del "Director de la oficina de gestión administrativa y financiera".
+
+1 - El "Director de la oficina de gestión administrativa y financiera" devuelve la solicitud.
+2 - La solicitud llega a la bandeja del "Coordinador de la oficina de gestión administrativa y financiera" y las retenciones se mantienen.
+
+****************************************************************************
+Eliminación de datos Lissssssssssssssssssssto
+****************************************************************************
+Caso en que se borraron "otras retenciones".
+1 - El coordinador creo "Otras retenciones" y aprobó la solicitud.
+2 - El Director de Administración devolvió la solicitud y se mantuvieron las "Otras retenciones".
+3 - El coordinador Aprobó la solicitud y se borraron las "Otras retenciones".
+3.1 - Se agregó una retención en "Otras retenciones" y luego de ser aprobada la solicitud por el coordinador, no se borraron las retenciones.
+
+****************************************************************************
+Eliminación de datos
+****************************************************************************
+Devolución del Coordinador de la oficina de gestión administrativa y financiera.
+1 - El coordinador crear las retenciones (FZA, ISLR, LTF) y "Otras retenciones" y aprueba la solicitud.
+2 - El director de administración devuelve la solicitud.
+3 - El coordinador de administración devuelve la solicitud.
+3.1- En este punto se eliminan las retenciones (FZA, ISLR, LTF).
+
+**********************
+Pruebas de iva
+**********************
+
+Devolución del coordinador de administración
+
+1 - El coordinador de adminitración devuelve el sopg.
+1.1 - El iva se mantiene.
+
+
+Aprobación del coordinador de administración, después de que fue devuleta por el mismo.
+
+****************************************************************************
+Eliminación de datos
+****************************************************************************
+1 - El analista de ordenación de pago crea la solicitud y esta incluye iva (calculado automáticamente)
+2 - El coordinador de adminitración devuelve el sopg.
+2.1 - El iva se mantiene.
+3 - El analista de ordenación de pago revisa la solicitud para modificarla.
+3.1 - En la vista de modifición de solicitud no aparecen todas las imputaciones, al parecer aparecen todas menos una
+      (En el ejemplo se muestra solo una imputación de dos que se habían registrado.)
+4 - El analista de ordenación de pagos envía la solicitud sin modificaciones.
+5 - El coordinar de administración aprueba la solicitud
+5.1 - En la tabla sai_docu_iva, el campo docg_monto_base se establece a 0 (el nuevo monto base en este proceso,
+      no toma en cuanta el monto de la última imputación, si es una sola imputación se establece el monto a 0)
+6 - El Director de administración devuelve la solicitud.
+6 - El coordinador devuelve la solicitud.
+6.1 - Se borran las retenciones (IVA, ISLR, etc.)
+7 - El analista de ordenación de pagos revisa la solicitud.
+7.1 - Si el analista cambia el porcentaje del iva, este se cálcula sin tomar encuenta la imputación que no se muestra.
